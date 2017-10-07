@@ -15,4 +15,11 @@ We used a cheap ATtiny 84a programmed via Arduino IDE and an Uno. It took a few
 hours to figure out how to do this but eventually we had an ATtiny blinking an
 LED. https://github.com/mirkin/ATtiny84aSetup
 
+608 Bearing 
+Outside Diameter 22.0mm 
+Bore Diameter 8.0mm
+Width 7.0mm
+Inner Ring 10.8mm
+
+
 
