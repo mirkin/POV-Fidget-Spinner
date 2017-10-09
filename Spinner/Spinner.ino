@@ -30,6 +30,7 @@ unsigned long lastSensorTime;
 unsigned long deltaTime;
 unsigned long pixelDelay=250UL;
 boolean doStuff=false;
+boolean hallVersionB=false;
 /*
  * 1,000,000 microseconds in a second
  * 1,000 microseconds in a millisecond
@@ -46,8 +47,14 @@ void setup() {
   {
     pinMode(ledPin, OUTPUT);
   }
-  pinMode(hallPin, INPUT);
-  //pinMode(hallPin, INPUT_PULLUP);
+  if (hallVersionB)
+  {
+    pinMode(hallPin, INPUT_PULLUP);
+  }
+  else
+  {
+    pinMode(hallPin, INPUT);
+  }
   pinMode(button_1, INPUT_PULLUP);
   //
   for(int c=0; c<noLEDS; c++){
@@ -260,13 +267,21 @@ void flash(){
 }
 
 ISR(PCINT1_vect){  // Pin Interrupt 1 (pins 8-11)
-  if (digitalRead(hallPin)){
-    ledON=true;
-    sensorTripped=true;
-//    deltaRevolutions++;
+  if (hallVersionB)
+  {
+    if (!digitalRead(hallPin)){
+      sensorTripped=true;
+    }
   }
   else
   {
-    ledON=false;
+    if (digitalRead(hallPin)){
+      ledON=true;
+      sensorTripped=true;
+    }
+    else
+    {
+      ledON=false;
+    }
   }
 }
